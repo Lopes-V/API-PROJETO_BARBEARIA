@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 public class ServiceAutenticacao {
 
 
-        private RepositoryUsuario repository;
+    private RepositoryUsuario repository;
 
-        public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            return repository.findByLogin(username);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByLogin(username);
 
     }
 }
