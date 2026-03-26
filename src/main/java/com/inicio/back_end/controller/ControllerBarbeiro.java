@@ -23,7 +23,6 @@ public class ControllerBarbeiro {
         List<DTOBarbeiro> barbeiros = sb.get();
 
         if (barbeiros.isEmpty()) {
-            // Retornar 204 No Content é mais profissional que 400 Bad Request para listas vazias
             return ResponseEntity.noContent().build();
         }
 
@@ -36,7 +35,7 @@ public class ControllerBarbeiro {
             if(Objects.nonNull(b)) {
                 return ResponseEntity.ok(sb.getById(id));
             }else{
-                return ResponseEntity.badRequest().body(Map.of("message","Nenhum Barbeiro Encontrado com o id "+id));
+                return ResponseEntity.noContent().build();
             }
         } catch (RuntimeException e) {
             System.out.println("Erro ao procurar um barbeiro por id" + e);
