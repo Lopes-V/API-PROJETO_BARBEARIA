@@ -2,7 +2,9 @@ package com.inicio.back_end.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,6 +16,8 @@ import java.time.LocalTime;
 public class DTOServico {
     @NotBlank(message = "O nome do serviço é obrigatório")
     String nome;
+    @Getter
+    @Setter
 
     @NotNull(message = "A duração deve ser informada")
     @Min(value = 5, message = "Tempo de corte muito curto! O mínimo é 5 minutos.")

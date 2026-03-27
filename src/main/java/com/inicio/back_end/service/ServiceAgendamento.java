@@ -7,6 +7,7 @@ import com.inicio.back_end.model.Servico;
 import com.inicio.back_end.model.enums.StatusAgendamento;
 import com.inicio.back_end.repository.RepositoryAgendamento;
 import com.inicio.back_end.repository.RepositoryServico;
+import org.mapstruct.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Mapper(componentModel = "spring")
 public class ServiceAgendamento {
 
     private final RepositoryAgendamento ra;
@@ -37,7 +39,7 @@ public class ServiceAgendamento {
 
     @Transactional
     public void criar(DTOAgendamento dtoAgendamento) throws RuntimeException {
-        Servico s = rs.findById(dtoAgendamento.serviceId()).orElseThrow();
+        Servico s = rs.findById(dtoAgendamento.getServiceId()).orElseThrow();
         ra.save(mM.map(s, Agendamento.class));
     }
 
