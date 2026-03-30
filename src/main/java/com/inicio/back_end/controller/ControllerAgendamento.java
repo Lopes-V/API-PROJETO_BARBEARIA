@@ -3,11 +3,15 @@ package com.inicio.back_end.controller;
 
 import com.inicio.back_end.dto.DTOAgendamento;
 import com.inicio.back_end.dto.especifico.DTOPatchAgendamento;
+import com.inicio.back_end.model.Agendamento;
 import com.inicio.back_end.service.ServiceAgendamento;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -22,64 +26,89 @@ public class ControllerAgendamento {
 
     @GetMapping
     public ResponseEntity<?> getAgendamento() {
-        List<DTOAgendamento> agendamentoList = this.sa.get();
         try {
-            if (Objects.nonNull(agendamentoList)) {
-                return ResponseEntity.ok(agendamentoList);
-            } else {
-                return ResponseEntity.noContent().build();
-            }
+            List<DTOAgendamento> agendamentoList = this.sa.get();
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Agendamentos recuperados com sucesso",
+                    "data", agendamentoList
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao tentar buscar agendamentos " + e);
-            return ResponseEntity.badRequest().body("Erro ao tentar buscar agendamentos");
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao recuperar agendamentos: " + e.getMessage()
+            ));
         }
     }
 
     @GetMapping("/barbeiro/{id}")
-    public ResponseEntity<?> getAgendamentoByBarbeiro(@RequestParam Long id) {
-        List<DTOAgendamento> a = sa.getByBarbeiro(id);
+    public ResponseEntity<?> getAgendamentoByBarbeiro(@PathVariable Long id) {
         try {
-            if (Objects.nonNull(a)) {
-                return ResponseEntity.ok(a);
-            } else {
-                return ResponseEntity.noContent().build();
-            }
+            List<DTOAgendamento> a = sa.getByBarbeiro(id);
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Agendamentos do barbeiro recuperados com sucesso",
+                    "data", a
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao procurar o agendamento pelo barbeiro " + e);
-            return ResponseEntity.badRequest().body("Erro ao procurar o agendamento pelo barbeiro");
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao recuperar agendamentos do barbeiro: " + e.getMessage()
+            ));
         }
     }
 
     @PostMapping
     public ResponseEntity<?> criarAgendamento(@RequestBody DTOAgendamento dtoAgendamento) {
         try {
-            sa.criar(dtoAgendamento);
-            return ResponseEntity.ok().build();
+            Agendamento agendamento = sa.criar(dtoAgendamento);
+            URI uri = ServletUriComponentsBuilder
+                    .fromCurrentRequestUri()
+                    .path("/{id}")
+                    .buildAndExpand(agendamento.getId())
+                    .toUri();
+            return ResponseEntity.created(uri).body(Map.of(
+                    "success", true,
+                    "message", "Agendamento criado com sucesso",
+                    "data", agendamento
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao criar o agendamento " + e);
-            return ResponseEntity.badRequest().body("Erro ao criar o agendamento");
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao criar agendamento: " + e.getMessage()
+            ));
         }
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> deletarAgendamento(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarAgendamento(@PathVariable Long id) {
         try {
             sa.delete(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Agendamento deletado com sucesso"
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao tentar deletar o usuario " + e);
-            return ResponseEntity.badRequest().body("Erro ao tentar deletar o usuario");
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao deletar agendamento: " + e.getMessage()
+            ));
         }
     }
 
-    @PatchMapping("/agendamentos/{id}/status")
-    public ResponseEntity<?> changeStatusAgendamento(@RequestParam Long id, @RequestBody DTOPatchAgendamento status) {
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> changeStatusAgendamento(@PathVariable Long id, @RequestBody DTOPatchAgendamento status) {
         try {
             sa.changeStatus(id, status);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Status do agendamento alterado com sucesso"
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao tentar alterar o status " + e);
-            return ResponseEntity.badRequest().body("Erro ao tentar alterar o status");
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao alterar status do agendamento: " + e.getMessage()
+            ));
         }
     }
 }

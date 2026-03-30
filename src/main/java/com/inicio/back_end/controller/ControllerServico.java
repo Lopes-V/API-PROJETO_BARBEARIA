@@ -1,11 +1,15 @@
 package com.inicio.back_end.controller;
 
 import com.inicio.back_end.dto.DTOServico;
+import com.inicio.back_end.model.Servico;
 import com.inicio.back_end.service.ServiceServico;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -19,48 +23,81 @@ public class ControllerServico {
     }
 
     @GetMapping
-    public ResponseEntity<List<DTOServico>> getServico() {
-        List<DTOServico> lista = ss.get();
-
-        return lista.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(lista);
+    public ResponseEntity<?> getServico() {
+        try {
+            List<DTOServico> lista = ss.get();
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Serviços recuperados com sucesso",
+                    "data", lista
+            ));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao recuperar serviços: " + e.getMessage()
+            ));
+        }
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<?> getByIdServico(@RequestParam Long id) {
-        DTOServico s = ss.getById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getByIdServico(@PathVariable Long id) {
         try {
+            DTOServico s = ss.getById(id);
             if (Objects.nonNull(s)) {
-                return ResponseEntity.ok(s);
+                return ResponseEntity.ok(Map.of(
+                        "success", true,
+                        "message", "Serviço encontrado com sucesso",
+                        "data", s
+                ));
             } else {
-                return ResponseEntity.noContent().build();
+                return ResponseEntity.status(404).body(Map.of(
+                        "success", false,
+                        "message", "Serviço não encontrado"
+                ));
             }
         } catch (RuntimeException e) {
-            System.out.println("Erro ao buscar servico por id " + e);
-            return ResponseEntity.badRequest().body("Erro ao buscar servico por id");
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao buscar serviço por ID: " + e.getMessage()
+            ));
         }
     }
 
     @PostMapping
     public ResponseEntity<?> criarServico(@RequestBody DTOServico dS) {
         try {
-            ss.criar(dS);
-            return ResponseEntity.ok().build();
+            Servico servico = ss.criar(dS);
+            URI uri = ServletUriComponentsBuilder
+                    .fromCurrentRequestUri()
+                    .path("/{id}")
+                    .buildAndExpand(servico.getId())
+                    .toUri();
+            return ResponseEntity.created(uri).body(Map.of(
+                    "success", true,
+                    "message", "Serviço criado com sucesso",
+                    "data", servico
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao tentar criar um servico " + e);
-            return ResponseEntity.badRequest().body("Erro ao tentar criar um servico");
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao criar serviço: " + e.getMessage()
+            ));
         }
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> deletarServico(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarServico(@PathVariable Long id) {
         try {
             ss.deletar(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Serviço deletado com sucesso"
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao tentar deletar um serviço " + e);
-            return ResponseEntity.badRequest().body("Erro ao tentar deletar um serviço");
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao deletar serviço: " + e.getMessage()
+            ));
         }
     }
 }

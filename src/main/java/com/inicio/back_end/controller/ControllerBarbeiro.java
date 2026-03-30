@@ -1,10 +1,13 @@
 package com.inicio.back_end.controller;
 
 import com.inicio.back_end.dto.DTOBarbeiro;
+import com.inicio.back_end.model.Barbeiro;
 import com.inicio.back_end.service.ServiceBarbeiro;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -19,60 +22,97 @@ public class ControllerBarbeiro {
     }
 
     @GetMapping
-    public ResponseEntity<List<DTOBarbeiro>> getBarbeiros() {
-        List<DTOBarbeiro> barbeiros = sb.get();
-
-        if (barbeiros.isEmpty()) {
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<?> getBarbeiros() {
+        try {
+            List<DTOBarbeiro> barbeiros = sb.get();
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Barbeiros recuperados com sucesso",
+                    "data", barbeiros
+            ));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao recuperar barbeiros: " + e.getMessage()
+            ));
         }
 
-        return ResponseEntity.ok(barbeiros);
     }
-    @GetMapping("{id}")
-    public ResponseEntity<?> getBarbeiroById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getBarbeiroById(@PathVariable Long id) {
         try {
-            DTOBarbeiro b = sb.getById(id);
-            if(Objects.nonNull(b)) {
-                return ResponseEntity.ok(sb.getById(id));
+            DTOBarbeiro dtoBarbeiro = sb.getById(id);
+            if(Objects.nonNull(dtoBarbeiro)) {
+                return ResponseEntity.ok(Map.of(
+                        "success", true,
+                        "message", "Barbeiro encontrado com sucesso",
+                        "data", dtoBarbeiro
+                ));
             }else{
-                return ResponseEntity.noContent().build();
+                return ResponseEntity.status(404).body(Map.of(
+                        "success", false,
+                        "message", "Barbeiro não encontrado"
+                ));
             }
         } catch (RuntimeException e) {
-            System.out.println("Erro ao procurar um barbeiro por id" + e);
-            return ResponseEntity.badRequest().body(Map.of("message","Erro ao procurar um barbeiro por id"));
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao procurar barbeiro por ID: " + e.getMessage()
+            ));
         }
     }
 
     @PostMapping
     public ResponseEntity<?> cadastrarBarbeiro(@RequestBody DTOBarbeiro dtoBarbeiro){
         try{
-            sb.cadastrar(dtoBarbeiro);
-            return ResponseEntity.ok().body(Map.of("message","Barbeiro cadastrado com sucesso"));
+            Barbeiro barbeiro = sb.cadastrar(dtoBarbeiro);
+            URI uri = ServletUriComponentsBuilder
+                    .fromCurrentRequestUri()
+                    .path("/{id}")
+                    .buildAndExpand(barbeiro.getId())
+                    .toUri();
+            return ResponseEntity.created(uri).body(Map.of(
+                    "success", true,
+                    "message", "Barbeiro cadastrado com sucesso",
+                    "data", barbeiro
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao tentar cadastrar barbeiro " + e);
-            return ResponseEntity.badRequest().body(Map.of("message", "Erro ao tentar cadastrar barbeiro"));
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao cadastrar barbeiro: " + e.getMessage()
+            ));
         }
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> editarBarbeiro(@RequestBody DTOBarbeiro dtoBarbeiro, @RequestParam Long id){
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editarBarbeiro(@RequestBody DTOBarbeiro dtoBarbeiro, @PathVariable Long id){
         try {
             sb.editar(dtoBarbeiro, id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Barbeiro editado com sucesso"
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao editar o barbeiro " + e);
-            return ResponseEntity.badRequest().body(Map.of("message", "Erro ao editar o barbeiro"));
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao editar barbeiro: " + e.getMessage()
+            ));
         }
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> deletarBarbeiro(@RequestParam Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarBarbeiro(@PathVariable Long id){
         try{
             sb.deletar(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Barbeiro deletado com sucesso"
+            ));
         } catch (RuntimeException e) {
-            System.out.println("Erro ao deletar barbeiro" + e);
-            return ResponseEntity.badRequest().body(Map.of("message","Erro ao deletar barbeiro"));
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao deletar barbeiro: " + e.getMessage()
+            ));
         }
     }
 }

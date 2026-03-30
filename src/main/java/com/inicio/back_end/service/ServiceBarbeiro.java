@@ -39,8 +39,8 @@ public class ServiceBarbeiro {
     }
 
     @Transactional()
-    public void cadastrar(DTOBarbeiro db) throws RuntimeException {
-        rb.save(mM.toEntity(db));
+    public Barbeiro cadastrar(DTOBarbeiro db) throws RuntimeException {
+        return rb.save(mM.toEntity(db));
     }
 
     @Transactional()

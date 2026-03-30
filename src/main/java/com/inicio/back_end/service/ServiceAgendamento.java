@@ -34,8 +34,8 @@ public class ServiceAgendamento {
     }
 
     @Transactional
-    public void criar(DTOAgendamento dtoAgendamento) throws RuntimeException {
-        ra.save(mM.toEntity(dtoAgendamento));
+    public Agendamento criar(DTOAgendamento dtoAgendamento) throws RuntimeException {
+        return ra.save(mM.toEntity(dtoAgendamento));
     }
 
     @Transactional(readOnly = true)
@@ -45,7 +45,7 @@ public class ServiceAgendamento {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(Long id) throws RuntimeException{
         ra.deleteById(id);
     }
 

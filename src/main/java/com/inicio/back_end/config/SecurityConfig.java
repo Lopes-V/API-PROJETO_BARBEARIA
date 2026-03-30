@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger-resources/**", "/webjars/**").permitAll();
-                    req.requestMatchers("/barbeiro/**", "/agendamentos/**", "/servicos/**").permitAll();
+                    req.requestMatchers("/barbeiro/**", "/agendamentos/**", "/servicos/**","/estoque/**","/financeiro/**").permitAll();
                     req.anyRequest().authenticated();
                 })
                 .build();

@@ -3,6 +3,7 @@ package com.inicio.back_end.service;
 
 import com.inicio.back_end.dto.DTOServico;
 import com.inicio.back_end.mapper.ServicoMapper;
+import com.inicio.back_end.model.Servico;
 import com.inicio.back_end.repository.RepositoryServico;
 import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,18 +25,18 @@ public class ServiceServico {
 
     @Transactional(readOnly = true)
     public List<DTOServico> get() throws RuntimeException{
-        return rs.findAll().stream().map(servico ->
-                mM.toDto(servico)).toList();
+        return rs.findAll().stream().map(mM::toDto).toList();
     }
 
     @Transactional(readOnly = true)
     public DTOServico getById(Long id) throws RuntimeException{
-        return rs.findById(id).map(s -> mM.toDto(s)).orElseThrow();
+        return rs.findById(id).map(mM::toDto).orElseThrow();
     }
 
     @Transactional
-    public void criar(DTOServico dS) throws RuntimeException{
-        rs.save(mM.toEntity(dS));
+    public Servico criar(DTOServico dS) throws RuntimeException{
+
+        return rs.save(mM.toEntity(dS));
     }
 
     @Transactional
