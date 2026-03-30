@@ -23,6 +23,6 @@ public record DTOAgendamento (
     LocalDateTime dataInicio,
 
     LocalDateTime dataFim,
-    @NotNull(message = "nao poder ser nulo")
-    StatusAgendamento statusAgendamento){
-}
+    @NotNull(message = "nao pode ser nulo")
+    StatusAgendamento statusAgendamento)
+{}

@@ -2,6 +2,7 @@ package com.inicio.back_end.controller;
 
 
 import com.inicio.back_end.dto.DTOAgendamento;
+import com.inicio.back_end.dto.especifico.DTOPatchAgendamento;
 import com.inicio.back_end.service.ServiceAgendamento;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,10 @@ public class ControllerAgendamento {
 
     @GetMapping
     public ResponseEntity<?> getAgendamento() {
+        List<DTOAgendamento> agendamentoList = this.sa.get();
         try {
-            if (Objects.nonNull(sa.get())) {
-                return ResponseEntity.ok(sa);
+            if (Objects.nonNull(agendamentoList)) {
+                return ResponseEntity.ok(agendamentoList);
             } else {
                 return ResponseEntity.noContent().build();
             }
@@ -54,8 +56,8 @@ public class ControllerAgendamento {
             sa.criar(dtoAgendamento);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
-            System.out.println("Erro ao criar o usuario " + e);
-            return ResponseEntity.badRequest().body("Erro ao criar o usuario");
+            System.out.println("Erro ao criar o agendamento " + e);
+            return ResponseEntity.badRequest().body("Erro ao criar o agendamento");
         }
     }
 
@@ -71,7 +73,7 @@ public class ControllerAgendamento {
     }
 
     @PatchMapping("/agendamentos/{id}/status")
-    public ResponseEntity<?> changeStatusAgendamento(@RequestParam Long id, @RequestBody String status) {
+    public ResponseEntity<?> changeStatusAgendamento(@RequestParam Long id, @RequestBody DTOPatchAgendamento status) {
         try {
             sa.changeStatus(id, status);
             return ResponseEntity.ok().build();

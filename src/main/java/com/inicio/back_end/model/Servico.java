@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -23,5 +22,5 @@ public class Servico {
     @Column(name = "preco_servico")
     private BigDecimal preco;
     @Column(name = "duracao_servico")
-    private LocalTime duracaoServico;
+    private Integer duracaoServico;
 }

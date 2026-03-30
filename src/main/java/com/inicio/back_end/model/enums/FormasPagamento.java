@@ -4,8 +4,14 @@ import lombok.Getter;
 
 @Getter
 public enum FormasPagamento {
-    DEBITO,
-    CREDITO,
-    PIX,
-    BOLETO
+    DEBITO("debito"),
+    CREDITO("credito"),
+    PIX("pix"),
+    BOLETO("boleto");
+
+    private final String descricao;
+
+    FormasPagamento(String descricao) {
+        this.descricao = descricao;
+    }
 }

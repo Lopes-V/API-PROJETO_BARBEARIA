@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface RepositoryAgendamento extends JpaRepository<Agendamento, Long> {
     boolean existsByBarbeiroId(Long barbeiroId);
+
     List<Agendamento> findAgendamentoByBarbeiroId(Long barbeiroId);
 }
