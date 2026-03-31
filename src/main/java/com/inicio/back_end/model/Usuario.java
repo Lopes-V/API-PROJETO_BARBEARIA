@@ -1,9 +1,7 @@
 package com.inicio.back_end.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.inicio.back_end.model.enums.RoleUsuario;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +22,20 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(unique = true, nullable = false)
     private String login;
+    
+    @Column(nullable = false)
     private String senha;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RoleUsuario role = RoleUsuario.CLIENTE;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.getCodigo()));
     }
 
     @Override

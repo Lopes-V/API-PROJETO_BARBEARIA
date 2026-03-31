@@ -1,6 +1,7 @@
 com\inicio\back_end\model\Usuario.class
 com\inicio\back_end\controller\ControllerAgendamento.class
 com\inicio\back_end\mapper\BarbeiroMapper.class
+com\inicio\back_end\model\enums\RoleUsuario.class
 com\inicio\back_end\dto\DTOFinanceiro.class
 com\inicio\back_end\model\Barbeiro.class
 com\inicio\back_end\model\Estoque$EstoqueBuilder.class

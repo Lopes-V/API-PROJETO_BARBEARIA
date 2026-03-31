@@ -25,6 +25,7 @@ C:\Users\vinicius_lopes150\Desktop\sistema-de-barbearia\API-PROJETO_BARBEARIA\sr
 C:\Users\vinicius_lopes150\Desktop\sistema-de-barbearia\API-PROJETO_BARBEARIA\src\main\java\com\inicio\back_end\model\Agendamento.java
 C:\Users\vinicius_lopes150\Desktop\sistema-de-barbearia\API-PROJETO_BARBEARIA\src\main\java\com\inicio\back_end\model\Barbeiro.java
 C:\Users\vinicius_lopes150\Desktop\sistema-de-barbearia\API-PROJETO_BARBEARIA\src\main\java\com\inicio\back_end\model\enums\FormasPagamento.java
+C:\Users\vinicius_lopes150\Desktop\sistema-de-barbearia\API-PROJETO_BARBEARIA\src\main\java\com\inicio\back_end\model\enums\RoleUsuario.java
 C:\Users\vinicius_lopes150\Desktop\sistema-de-barbearia\API-PROJETO_BARBEARIA\src\main\java\com\inicio\back_end\model\enums\StatusAgendamento.java
 C:\Users\vinicius_lopes150\Desktop\sistema-de-barbearia\API-PROJETO_BARBEARIA\src\main\java\com\inicio\back_end\model\enums\StatusLancamento.java
 C:\Users\vinicius_lopes150\Desktop\sistema-de-barbearia\API-PROJETO_BARBEARIA\src\main\java\com\inicio\back_end\model\enums\TipoLancamento.java
