@@ -3,6 +3,7 @@ package com.inicio.back_end.controller;
 import com.inicio.back_end.dto.DTOServico;
 import com.inicio.back_end.model.Servico;
 import com.inicio.back_end.service.ServiceServico;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -64,7 +65,7 @@ public class ControllerServico {
     }
 
     @PostMapping
-    public ResponseEntity<?> criarServico(@RequestBody DTOServico dS) {
+    public ResponseEntity<?> criarServico(@Valid @RequestBody DTOServico dS) {
         try {
             Servico servico = ss.criar(dS);
             URI uri = ServletUriComponentsBuilder

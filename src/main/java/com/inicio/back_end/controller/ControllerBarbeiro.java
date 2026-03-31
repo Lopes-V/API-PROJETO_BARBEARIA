@@ -3,6 +3,7 @@ package com.inicio.back_end.controller;
 import com.inicio.back_end.dto.DTOBarbeiro;
 import com.inicio.back_end.model.Barbeiro;
 import com.inicio.back_end.service.ServiceBarbeiro;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -63,7 +64,7 @@ public class ControllerBarbeiro {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrarBarbeiro(@RequestBody DTOBarbeiro dtoBarbeiro){
+    public ResponseEntity<?> cadastrarBarbeiro(@Valid  @RequestBody DTOBarbeiro dtoBarbeiro){
         try{
             Barbeiro barbeiro = sb.cadastrar(dtoBarbeiro);
             URI uri = ServletUriComponentsBuilder
@@ -85,7 +86,7 @@ public class ControllerBarbeiro {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> editarBarbeiro(@RequestBody DTOBarbeiro dtoBarbeiro, @PathVariable Long id){
+    public ResponseEntity<?> editarBarbeiro(@Valid @RequestBody DTOBarbeiro dtoBarbeiro, @PathVariable Long id){
         try {
             sb.editar(dtoBarbeiro, id);
             return ResponseEntity.ok(Map.of(

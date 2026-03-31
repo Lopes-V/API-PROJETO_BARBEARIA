@@ -5,6 +5,7 @@ import com.inicio.back_end.dto.DTOAgendamento;
 import com.inicio.back_end.dto.especifico.DTOPatchAgendamento;
 import com.inicio.back_end.model.Agendamento;
 import com.inicio.back_end.service.ServiceAgendamento;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -59,7 +60,7 @@ public class ControllerAgendamento {
     }
 
     @PostMapping
-    public ResponseEntity<?> criarAgendamento(@RequestBody DTOAgendamento dtoAgendamento) {
+    public ResponseEntity<?> criarAgendamento(@Valid @RequestBody DTOAgendamento dtoAgendamento) {
         try {
             Agendamento agendamento = sa.criar(dtoAgendamento);
             URI uri = ServletUriComponentsBuilder
@@ -97,7 +98,7 @@ public class ControllerAgendamento {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<?> changeStatusAgendamento(@PathVariable Long id, @RequestBody DTOPatchAgendamento status) {
+    public ResponseEntity<?> changeStatusAgendamento(@PathVariable Long id, @Valid @RequestBody DTOPatchAgendamento status) {
         try {
             sa.changeStatus(id, status);
             return ResponseEntity.ok(Map.of(

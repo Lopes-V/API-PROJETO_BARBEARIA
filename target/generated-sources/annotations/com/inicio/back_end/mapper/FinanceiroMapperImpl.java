@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-03-30T09:33:08-0300",
+    date = "2026-03-30T14:14:22-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 22 (Oracle Corporation)"
 )
 @Component
@@ -23,9 +23,12 @@ public class FinanceiroMapperImpl implements FinanceiroMapper {
         Financeiro.FinanceiroBuilder financeiro = Financeiro.builder();
 
         financeiro.agendamento( dTOFinanceiroToAgendamento( dto ) );
-        financeiro.valorTotal( dto.getValorTotal() );
-        financeiro.valorBarbeiro( dto.getValorBarbeiro() );
-        financeiro.valorCasa( dto.getValorCasa() );
+        financeiro.id( dto.getId() );
+        financeiro.dataLancamento( dto.getDataLancamento() );
+        financeiro.descricao( dto.getDescricao() );
+        financeiro.tipoLancamento( dto.getTipoLancamento() );
+        financeiro.valor( dto.getValor() );
+        financeiro.statusLancamento( dto.getStatusLancamento() );
         financeiro.formasPagamento( dto.getFormasPagamento() );
 
         return financeiro.build();
@@ -40,9 +43,12 @@ public class FinanceiroMapperImpl implements FinanceiroMapper {
         DTOFinanceiro dTOFinanceiro = new DTOFinanceiro();
 
         dTOFinanceiro.setAgendamentoId( entityAgendamentoId( entity ) );
-        dTOFinanceiro.setValorTotal( entity.getValorTotal() );
-        dTOFinanceiro.setValorBarbeiro( entity.getValorBarbeiro() );
-        dTOFinanceiro.setValorCasa( entity.getValorCasa() );
+        dTOFinanceiro.setId( entity.getId() );
+        dTOFinanceiro.setDataLancamento( entity.getDataLancamento() );
+        dTOFinanceiro.setDescricao( entity.getDescricao() );
+        dTOFinanceiro.setTipoLancamento( entity.getTipoLancamento() );
+        dTOFinanceiro.setValor( entity.getValor() );
+        dTOFinanceiro.setStatusLancamento( entity.getStatusLancamento() );
         dTOFinanceiro.setFormasPagamento( entity.getFormasPagamento() );
 
         return dTOFinanceiro;

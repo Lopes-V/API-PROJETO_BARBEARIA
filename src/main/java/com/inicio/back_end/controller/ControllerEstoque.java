@@ -4,6 +4,7 @@ import com.inicio.back_end.dto.DTOEstoque;
 import com.inicio.back_end.dto.especifico.DTOPatchEstoque;
 import com.inicio.back_end.model.Estoque;
 import com.inicio.back_end.service.ServiceEstoque;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -57,7 +58,7 @@ public class ControllerEstoque {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrarEstoque(@RequestBody DTOEstoque dtoEstoque){
+    public ResponseEntity<?> cadastrarEstoque(@Valid @RequestBody DTOEstoque dtoEstoque){
         try{
             Estoque estoque = serviceEstoque.cadastrar(dtoEstoque);
             URI uri = ServletUriComponentsBuilder
@@ -79,7 +80,7 @@ public class ControllerEstoque {
     }
 
     @PatchMapping("/{id}/movimentacao")
-    public ResponseEntity<?> movimentacaoEstoque(@PathVariable Long id, @RequestBody DTOPatchEstoque dtoPatchEstoque){
+    public ResponseEntity<?> movimentacaoEstoque(@PathVariable Long id, @Valid @RequestBody DTOPatchEstoque dtoPatchEstoque){
         try{
             serviceEstoque.movimentacao(dtoPatchEstoque);
             return ResponseEntity.ok(Map.of(

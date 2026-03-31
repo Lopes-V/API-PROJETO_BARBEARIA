@@ -3,6 +3,7 @@ package com.inicio.back_end.controller;
 
 import com.inicio.back_end.dto.DTOFinanceiro;
 import com.inicio.back_end.service.ServiceFinanceiro;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +56,7 @@ public class ControllerFinanceiro {
     }
 
     @PostMapping("/lancamento")
-    public ResponseEntity<?> criarLancamento(@RequestBody DTOFinanceiro dto) {
+    public ResponseEntity<?> criarLancamento(@Valid @RequestBody DTOFinanceiro dto) {
         try {
             DTOFinanceiro criado = serviceFinanceiro.criarLancamento(dto);
             return ResponseEntity.ok(Map.of(
