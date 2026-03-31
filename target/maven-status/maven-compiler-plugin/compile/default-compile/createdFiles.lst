@@ -20,6 +20,7 @@ com\inicio\back_end\model\enums\TipoLancamento.class
 com\inicio\back_end\service\ServiceAutenticacao.class
 com\inicio\back_end\repository\RepositoryEstoque.class
 com\inicio\back_end\model\Servico.class
+com\inicio\back_end\controller\ControllerUsuario.class
 com\inicio\back_end\mapper\ServicoMapper.class
 com\inicio\back_end\repository\RepositoryBarbeiro.class
 com\inicio\back_end\mapper\AgendamentoMapperImpl.class
@@ -27,6 +28,9 @@ com\inicio\back_end\BackEndApplication.class
 com\inicio\back_end\dto\DTOEstoque.class
 com\inicio\back_end\dto\especifico\DTOPatchEstoque.class
 com\inicio\back_end\model\Servico$ServicoBuilder.class
+com\inicio\back_end\dto\DTOToken.class
+com\inicio\back_end\dto\DTOUsuario.class
+com\inicio\back_end\service\ServiceToken.class
 com\inicio\back_end\repository\RepositoryFinanceiro.class
 com\inicio\back_end\service\ServiceServico.class
 com\inicio\back_end\controller\ControllerServico.class
@@ -39,12 +43,15 @@ com\inicio\back_end\model\Financeiro.class
 com\inicio\back_end\mapper\EstoqueMapperImpl.class
 com\inicio\back_end\model\Agendamento$AgendamentoBuilder.class
 com\inicio\back_end\model\enums\StatusAgendamento.class
+com\inicio\back_end\config\JwtAuthenticationFilter.class
 com\inicio\back_end\service\ServiceBarbeiro.class
 com\inicio\back_end\mapper\FinanceiroMapper.class
 com\inicio\back_end\model\enums\FormasPagamento.class
+com\inicio\back_end\controller\AutenticacaoController.class
 com\inicio\back_end\model\enums\StatusLancamento.class
 com\inicio\back_end\dto\especifico\DTOPatchAgendamento.class
 com\inicio\back_end\model\Agendamento.class
+com\inicio\back_end\service\ServiceUsuario.class
 com\inicio\back_end\controller\ControllerFinanceiro.class
 com\inicio\back_end\service\ServiceEstoque.class
 com\inicio\back_end\dto\DTOServico.class
