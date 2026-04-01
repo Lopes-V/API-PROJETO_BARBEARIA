@@ -29,10 +29,6 @@ public class AutenticacaoController {
         this.token = token;
     }
 
-    /**
-     * Realiza login do usuário e retorna um token JWT
-     * POST /auth/login
-     */
     @PostMapping("/login")
     public ResponseEntity<?> efetuaLogin(@Valid @RequestBody DTOUsuario dtoUsuario) {
         try {

@@ -13,10 +13,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuário")
 public class ControllerUsuario {
 
     private final ServiceUsuario serviceUsuario;
@@ -25,10 +24,6 @@ public class ControllerUsuario {
         this.serviceUsuario = serviceUsuario;
     }
 
-    /**
-     * Registra um novo usuário no sistema
-     * POST /usuarios/registrar
-     */
     @PostMapping("/registrar")
     public ResponseEntity<?> registrarUsuario(@Valid @RequestBody DTOUsuario dtoUsuario) {
         try {
@@ -55,10 +50,6 @@ public class ControllerUsuario {
         }
     }
 
-    /**
-     * Retorna os dados do usuário autenticado
-     * GET /usuarios/me
-     */
     @GetMapping("/me")
     public ResponseEntity<?> getUsuarioAutenticado() {
         try {

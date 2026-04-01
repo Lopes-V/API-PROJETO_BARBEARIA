@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-/**
- * Serviço para gerenciar operações de usuários
- */
 @Service
 public class ServiceUsuario {
 
@@ -22,17 +19,11 @@ public class ServiceUsuario {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /**
-     * Registra um novo usuário com senha criptografada
-     */
     public Usuario registrarUsuario(DTOUsuario dto) {
-        // Validar se o usuário já existe
         Optional<Usuario> usuarioExistente = repositoryUsuario.findByLogin(dto.login());
         if (usuarioExistente.isPresent()) {
             throw new RuntimeException("Usuário com este login já existe!");
         }
-
-        // Criar novo usuário com senha criptografada
         Usuario usuario = new Usuario();
         usuario.setLogin(dto.login());
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
@@ -40,16 +31,10 @@ public class ServiceUsuario {
         return repositoryUsuario.save(usuario);
     }
 
-    /**
-     * Busca um usuário pelo login
-     */
     public Optional<Usuario> buscarPorLogin(String login) {
         return repositoryUsuario.findByLogin(login);
     }
 
-    /**
-     * Busca um usuário pelo ID
-     */
     public Optional<Usuario> buscarPorId(Long id) {
         return repositoryUsuario.findById(id);
     }
