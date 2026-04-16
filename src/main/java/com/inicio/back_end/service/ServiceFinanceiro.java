@@ -74,10 +74,11 @@ public class ServiceFinanceiro {
     }
 
     @Transactional
-    public void marcarComoPago(Long id) {
+    public DTOFinanceiro marcarComoPago(Long id) {
         Financeiro financeiro = repositoryFinanceiro.findById(id)
                 .orElseThrow(() -> new RuntimeException("Lançamento financeiro não encontrado"));
         financeiro.setStatusLancamento(StatusLancamento.PAGO);
-        repositoryFinanceiro.save(financeiro);
+        Financeiro atualizado = repositoryFinanceiro.save(financeiro);
+        return financeiroMapper.toDto(atualizado);
     }
 }

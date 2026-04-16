@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     image: mysql:latest
-    container_name: mysql-container
+    container_name: barbearia-back-end
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1212

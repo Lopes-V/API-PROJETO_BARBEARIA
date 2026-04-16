@@ -88,10 +88,11 @@ public class ControllerBarbeiro {
     @PutMapping("/{id}")
     public ResponseEntity<?> editarBarbeiro(@Valid @RequestBody DTOBarbeiro dtoBarbeiro, @PathVariable Long id){
         try {
-            sb.editar(dtoBarbeiro, id);
+            Barbeiro barbeiroAtualizado = sb.editar(dtoBarbeiro, id);
             return ResponseEntity.ok(Map.of(
                     "success", true,
-                    "message", "Barbeiro editado com sucesso"
+                    "message", "Barbeiro editado com sucesso",
+                    "data", barbeiroAtualizado
             ));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of(

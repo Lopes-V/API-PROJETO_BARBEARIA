@@ -82,10 +82,11 @@ public class ControllerEstoque {
     @PatchMapping("/{id}/movimentacao")
     public ResponseEntity<?> movimentacaoEstoque(@PathVariable Long id, @Valid @RequestBody DTOPatchEstoque dtoPatchEstoque){
         try{
-            serviceEstoque.movimentacao(dtoPatchEstoque);
+            Estoque estoqueAtualizado = serviceEstoque.movimentacao(dtoPatchEstoque);
             return ResponseEntity.ok(Map.of(
                     "success", true,
-                    "message", "Movimentação do estoque realizada com sucesso"
+                    "message", "Movimentação do estoque realizada com sucesso",
+                    "data", estoqueAtualizado
             ));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of(

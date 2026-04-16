@@ -37,13 +37,13 @@ public class ServiceEstoque {
     }
 
     @Transactional
-    public void movimentacao(DTOPatchEstoque dtoPatchEstoque) throws RuntimeException{
+    public Estoque movimentacao(DTOPatchEstoque dtoPatchEstoque) throws RuntimeException{
         Estoque estoque = repositoryEstoque.findById(dtoPatchEstoque.id()).orElseThrow();
         if ((dtoPatchEstoque.quantidade() < 0)) {
             estoque.setQuantidadeAtual(estoque.getQuantidadeAtual() - dtoPatchEstoque.quantidade());
         }else {
             estoque.setQuantidadeAtual(estoque.getQuantidadeAtual() + dtoPatchEstoque.quantidade());
         }
-        repositoryEstoque.save(estoque);
+        return repositoryEstoque.save(estoque);
     }
 }

@@ -15,7 +15,7 @@ import java.net.URI;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/usuário")
+@RequestMapping("/usuario")
 public class ControllerUsuario {
 
     private final ServiceUsuario serviceUsuario;

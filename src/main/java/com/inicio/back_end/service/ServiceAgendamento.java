@@ -50,9 +50,9 @@ public class ServiceAgendamento {
     }
 
     @Transactional
-    public void changeStatus(Long id, DTOPatchAgendamento status) {
+    public Agendamento changeStatus(Long id, DTOPatchAgendamento status) {
         Agendamento a = ra.findById(id).orElseThrow();
         a.setStatusAgendamento(StatusAgendamento.valueOf(status.statusAgendamento()));
-        ra.save(a);
+        return ra.save(a);
     }
 }

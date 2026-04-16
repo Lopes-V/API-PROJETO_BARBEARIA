@@ -75,10 +75,11 @@ public class ControllerFinanceiro {
     @PatchMapping("/{id}/pagar")
     public ResponseEntity<?> marcarComoPago(@PathVariable Long id) {
         try {
-            serviceFinanceiro.marcarComoPago(id);
+            DTOFinanceiro financeiroAtualizado = serviceFinanceiro.marcarComoPago(id);
             return ResponseEntity.ok(Map.of(
                     "success", true,
-                    "message", "Lançamento marcado como pago com sucesso"
+                    "message", "Lançamento marcado como pago com sucesso",
+                    "data", financeiroAtualizado
             ));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of(

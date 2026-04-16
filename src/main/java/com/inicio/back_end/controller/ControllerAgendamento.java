@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/agendamentes")
+@RequestMapping("/agendamentos")
 public class ControllerAgendamento {
 
     private final ServiceAgendamento sa;
@@ -42,7 +42,7 @@ public class ControllerAgendamento {
     }
 
     @GetMapping("/barbeiro/{id}")
-    public ResponseEntity<?> getAgendamentoByBarbeiro(@PathVariable Long id) {
+    public ResponseEntity<?> getAgendamentoByBarbeiro(@PathVariable Long id){
         try {
             List<DTOAgendamento> a = sa.getByBarbeiro(id);
             return ResponseEntity.ok(Map.of(
@@ -99,10 +99,11 @@ public class ControllerAgendamento {
     @PatchMapping("/{id}/status")
     public ResponseEntity<?> changeStatusAgendamento(@PathVariable Long id, @Valid @RequestBody DTOPatchAgendamento status) {
         try {
-            sa.changeStatus(id, status);
+            Agendamento agendamentoAtualizado = sa.changeStatus(id, status);
             return ResponseEntity.ok(Map.of(
                     "success", true,
-                    "message", "Status do agendamento alterado com sucesso"
+                    "message", "Status do agendamento alterado com sucesso",
+                    "data", agendamentoAtualizado
             ));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of(

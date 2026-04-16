@@ -44,10 +44,10 @@ public class ServiceBarbeiro {
     }
 
     @Transactional()
-    public void editar(DTOBarbeiro db, Long id) throws RuntimeException {
+    public Barbeiro editar(DTOBarbeiro db, Long id) throws RuntimeException {
         Barbeiro barbeiroAtualizado = mM.toEntity(db);
         barbeiroAtualizado.setId(id);
-        rb.save(barbeiroAtualizado);
+        return rb.save(barbeiroAtualizado);
     }
 
     @Transactional()
