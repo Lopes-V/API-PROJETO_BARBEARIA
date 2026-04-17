@@ -43,7 +43,7 @@ public class SecurityConfig {
                     
                     // Liberar autenticação (login)
                     req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
-                    req.requestMatchers(HttpMethod.POST, "/usuarios/registrar").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/usuario/registrar").permitAll();
                     
                     // Todas as outras rotas requerem autenticação
                     req.anyRequest().authenticated();
