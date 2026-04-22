@@ -1,0 +1,11 @@
+com\inicio\back_end\config\JwtAuthenticationFilterTest.class
+com\inicio\back_end\service\ServiceTokenTest.class
+com\inicio\back_end\model\enums\RoleUsuarioTest.class
+com\inicio\back_end\controller\UsuarioControllerTest.class
+com\inicio\back_end\AutenticacaoIntegrationTest.class
+com\inicio\back_end\controller\AutenticacaoControllerTest.class
+com\inicio\back_end\model\enums\RoleUsuarioTest$1.class
+com\inicio\back_end\model\UsuarioTest.class
+com\inicio\back_end\service\ServiceAutenticacaoTest.class
+com\inicio\back_end\service\ServiceUsuarioTest.class
+com\inicio\back_end\BackEndApplicationTests.class

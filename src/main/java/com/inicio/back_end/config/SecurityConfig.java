@@ -38,14 +38,11 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    // Liberar documentação Swagger
                     req.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger-resources/**", "/webjars/**").permitAll();
-                    
-                    // Liberar autenticação (login)
+                    req.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/usuario/registrar").permitAll();
-                    
-                    // Todas as outras rotas requerem autenticação
+                    req.requestMatchers(HttpMethod.POST,"/admin/**").hasAuthority("ADMIN");
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -71,7 +68,7 @@ public class SecurityConfig {
         corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
-
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
         return source;
     }
 

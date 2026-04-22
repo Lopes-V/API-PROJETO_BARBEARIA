@@ -47,7 +47,8 @@ public class AutenticacaoController {
                             "token", tokenJWT,
                             "usuario", Map.of(
                                     "id", usuario.getId(),
-                                    "login", usuario.getUsername()
+                                    "login", usuario.getUsername(),
+                                    "role", usuario.getRole()
                             )
                     )
             ));

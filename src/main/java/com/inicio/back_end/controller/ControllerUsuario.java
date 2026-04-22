@@ -3,6 +3,7 @@ package com.inicio.back_end.controller;
 import com.inicio.back_end.dto.DTOUsuario;
 import com.inicio.back_end.model.Usuario;
 import com.inicio.back_end.service.ServiceUsuario;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

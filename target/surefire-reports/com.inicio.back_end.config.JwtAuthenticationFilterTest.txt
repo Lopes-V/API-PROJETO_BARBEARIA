@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.inicio.back_end.config.JwtAuthenticationFilterTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.910 s -- in com.inicio.back_end.config.JwtAuthenticationFilterTest
