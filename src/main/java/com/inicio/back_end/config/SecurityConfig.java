@@ -42,7 +42,9 @@ public class SecurityConfig {
                     req.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/usuario/registrar").permitAll();
-                    req.requestMatchers(HttpMethod.POST,"/admin/**").hasAuthority("ADMIN");
+                    req.requestMatchers("/api/estoque/**").hasAuthority("ADMIN");
+                    req.requestMatchers("/api/financeiro/**").hasAuthority("ADMIN");
+                    req.requestMatchers("/api/barbeiro/**").hasAuthority("ADMIN");
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

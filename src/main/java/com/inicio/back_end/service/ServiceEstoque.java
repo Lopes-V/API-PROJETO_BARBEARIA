@@ -2,7 +2,6 @@ package com.inicio.back_end.service;
 
 
 import com.inicio.back_end.dto.DTOEstoque;
-import com.inicio.back_end.dto.especifico.DTOPatchEstoque;
 import com.inicio.back_end.mapper.EstoqueMapper;
 import com.inicio.back_end.model.Estoque;
 import com.inicio.back_end.repository.RepositoryEstoque;
@@ -39,11 +38,7 @@ public class ServiceEstoque {
     @Transactional
     public Estoque movimentacao(DTOPatchEstoque dtoPatchEstoque) throws RuntimeException{
         Estoque estoque = repositoryEstoque.findById(dtoPatchEstoque.id()).orElseThrow();
-        if ((dtoPatchEstoque.quantidade() < 0)) {
-            estoque.setQuantidadeAtual(estoque.getQuantidadeAtual() - dtoPatchEstoque.quantidade());
-        }else {
-            estoque.setQuantidadeAtual(estoque.getQuantidadeAtual() + dtoPatchEstoque.quantidade());
-        }
+        estoque.setQuantidadeAtual(estoque.getQuantidadeAtual() + dtoPatchEstoque.quantidade());
         return repositoryEstoque.save(estoque);
     }
 }

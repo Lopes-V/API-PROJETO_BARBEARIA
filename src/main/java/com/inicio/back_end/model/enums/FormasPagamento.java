@@ -4,10 +4,11 @@ import lombok.Getter;
 
 @Getter
 public enum FormasPagamento {
-    DEBITO("debito"),
-    CREDITO("credito"),
-    PIX("pix"),
-    BOLETO("boleto");
+    DEBITO("DEBITO"),
+    CREDITO("CREDITO"),
+    PIX("PIX"),
+    DINHEIRO("DINHEIRO"),
+    BOLETO("BOLETO");
 
     private final String descricao;
 

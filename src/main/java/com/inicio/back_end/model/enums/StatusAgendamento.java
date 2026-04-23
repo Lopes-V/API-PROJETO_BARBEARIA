@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum StatusAgendamento {
-    PENDENTE("pendente"),
-    CONCLUIDO("concluído"),
-    CANCELADO("cancelado"),
-    ATRASADO("atrasado");
+    PENDENTE("PENDENTE"),
+    CONCLUIDO("CONCLUIDO"),
+    CANCELADO("CANCELADO"),
+    ATRASADO("ATRASADO");
 
     private final String descricao;
     StatusAgendamento(String descricao) {

@@ -13,13 +13,14 @@ import java.time.LocalDateTime;
 
 
 public record DTOAgendamento (
+    Long id,
     @NotNull(message = "nao pode ser nulo")
     String nomeCliente,
     @NotNull(message = "nao pode ser nulo")
     Long barbeiroId,
     @NotNull(message = "nao pode ser nulo")
     Long serviceId,
-    @Future(message = "nao pode estar no futuro")
+    @Future(message = "deve ser uma data futura")
     LocalDateTime dataInicio,
 
     LocalDateTime dataFim,

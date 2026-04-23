@@ -56,7 +56,7 @@ public class ServiceFinanceiro {
         return Map.of(
                 "totalReceitas", totalReceitas,
                 "totalDespesas", totalDespesas,
-                "lucroLiquido", lucroLiquido
+                "saldo", lucroLiquido
         );
     }
 

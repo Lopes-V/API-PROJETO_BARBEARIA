@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/financeiro")
-public class ControllerFinanceiro {
+public class    ControllerFinanceiro {
 
     private final ServiceFinanceiro serviceFinanceiro;
 
