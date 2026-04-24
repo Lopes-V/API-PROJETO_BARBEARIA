@@ -30,13 +30,11 @@ public class ControllerServico {
             return ResponseEntity.ok(Map.of(
                     "success", true,
                     "message", "Serviços recuperados com sucesso",
-                    "data", lista
-            ));
+                    "data", lista));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of(
                     "success", false,
-                    "message", "Erro ao recuperar serviços: " + e.getMessage()
-            ));
+                    "message", "Erro ao recuperar serviços: " + e.getMessage()));
         }
     }
 
@@ -48,19 +46,16 @@ public class ControllerServico {
                 return ResponseEntity.ok(Map.of(
                         "success", true,
                         "message", "Serviço encontrado com sucesso",
-                        "data", s
-                ));
+                        "data", s));
             } else {
                 return ResponseEntity.status(404).body(Map.of(
                         "success", false,
-                        "message", "Serviço não encontrado"
-                ));
+                        "message", "Serviço não encontrado"));
             }
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of(
                     "success", false,
-                    "message", "Erro ao buscar serviço por ID: " + e.getMessage()
-            ));
+                    "message", "Erro ao buscar serviço por ID: " + e.getMessage()));
         }
     }
 
@@ -76,13 +71,26 @@ public class ControllerServico {
             return ResponseEntity.created(uri).body(Map.of(
                     "success", true,
                     "message", "Serviço criado com sucesso",
-                    "data", servico
-            ));
+                    "data", servico));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of(
                     "success", false,
-                    "message", "Erro ao criar serviço: " + e.getMessage()
-            ));
+                    "message", "Erro ao criar serviço: " + e.getMessage()));
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editarServico(@Valid @RequestBody DTOServico dS, @PathVariable Long id) {
+        try {
+            Servico servico = ss.editar(dS, id);
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Serviço editado com sucesso",
+                    "data", servico));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Erro ao editar serviço: " + e.getMessage()));
         }
     }
 
@@ -92,13 +100,11 @@ public class ControllerServico {
             ss.deletar(id);
             return ResponseEntity.ok(Map.of(
                     "success", true,
-                    "message", "Serviço deletado com sucesso"
-            ));
+                    "message", "Serviço deletado com sucesso"));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of(
                     "success", false,
-                    "message", "Erro ao deletar serviço: " + e.getMessage()
-            ));
+                    "message", "Erro ao deletar serviço: " + e.getMessage()));
         }
     }
 }

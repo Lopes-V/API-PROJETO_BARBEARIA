@@ -40,15 +40,17 @@ public class ServiceServico {
     }
 
     @Transactional
-    public void deletar(Long id) throws RuntimeException{
-        try{
-            if(!rs.existsById(id)){
-                throw new RuntimeException("Servico não encontrado");
-            }else{
-                deletar(id);
-            }
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
+    public Servico editar(DTOServico dS, Long id) throws RuntimeException {
+        Servico s = mM.toEntity(dS);
+        s.setId(id);
+        return rs.save(s);
+    }
+
+    @Transactional
+    public void deletar(Long id) throws RuntimeException {
+        if (!rs.existsById(id)) {
+            throw new RuntimeException("Serviço não encontrado");
         }
+        rs.deleteById(id);
     }
 }
