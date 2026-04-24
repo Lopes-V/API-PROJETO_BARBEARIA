@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class DTOServico {
+    private Long id_servico;
+
     @NotBlank(message = "O nome do serviço é obrigatório")
     private String nome;
 
