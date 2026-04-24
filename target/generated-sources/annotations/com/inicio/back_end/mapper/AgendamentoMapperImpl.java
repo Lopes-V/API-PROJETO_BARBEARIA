@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-04-22T11:09:38-0300",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 22 (Oracle Corporation)"
+    date = "2026-04-24T09:59:03-0300",
+    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class AgendamentoMapperImpl implements AgendamentoMapper {
@@ -27,9 +27,10 @@ public class AgendamentoMapperImpl implements AgendamentoMapper {
 
         agendamento.servico( dTOAgendamentoToServico( dto ) );
         agendamento.barbeiro( dTOAgendamentoToBarbeiro( dto ) );
-        agendamento.nomeCliente( dto.nomeCliente() );
-        agendamento.dataInicio( dto.dataInicio() );
         agendamento.dataFim( dto.dataFim() );
+        agendamento.dataInicio( dto.dataInicio() );
+        agendamento.id( dto.id() );
+        agendamento.nomeCliente( dto.nomeCliente() );
         agendamento.statusAgendamento( dto.statusAgendamento() );
 
         return agendamento.build();
@@ -43,6 +44,7 @@ public class AgendamentoMapperImpl implements AgendamentoMapper {
 
         Long serviceId = null;
         Long barbeiroId = null;
+        Long id = null;
         String nomeCliente = null;
         LocalDateTime dataInicio = null;
         LocalDateTime dataFim = null;
@@ -50,12 +52,13 @@ public class AgendamentoMapperImpl implements AgendamentoMapper {
 
         serviceId = entityServicoId( entity );
         barbeiroId = entityBarbeiroId( entity );
+        id = entity.getId();
         nomeCliente = entity.getNomeCliente();
         dataInicio = entity.getDataInicio();
         dataFim = entity.getDataFim();
         statusAgendamento = entity.getStatusAgendamento();
 
-        DTOAgendamento dTOAgendamento = new DTOAgendamento( nomeCliente, barbeiroId, serviceId, dataInicio, dataFim, statusAgendamento );
+        DTOAgendamento dTOAgendamento = new DTOAgendamento( id, nomeCliente, barbeiroId, serviceId, dataInicio, dataFim, statusAgendamento );
 
         return dTOAgendamento;
     }

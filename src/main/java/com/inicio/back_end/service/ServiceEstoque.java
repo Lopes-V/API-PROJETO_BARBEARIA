@@ -2,6 +2,7 @@ package com.inicio.back_end.service;
 
 
 import com.inicio.back_end.dto.DTOEstoque;
+import com.inicio.back_end.dto.especifico.DTOPatchEstoque;
 import com.inicio.back_end.mapper.EstoqueMapper;
 import com.inicio.back_end.model.Estoque;
 import com.inicio.back_end.repository.RepositoryEstoque;

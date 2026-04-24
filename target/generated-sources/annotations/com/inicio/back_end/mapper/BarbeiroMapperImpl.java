@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-04-22T11:09:38-0300",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 22 (Oracle Corporation)"
+    date = "2026-04-24T09:59:03-0300",
+    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class BarbeiroMapperImpl implements BarbeiroMapper {
@@ -21,10 +21,11 @@ public class BarbeiroMapperImpl implements BarbeiroMapper {
 
         Barbeiro.BarbeiroBuilder barbeiro = Barbeiro.builder();
 
-        barbeiro.nome( dto.getNome() );
-        barbeiro.especialidade( dto.getEspecialidade() );
-        barbeiro.comissao( dto.getComissao() );
+        barbeiro.id( dto.getId_barbeiro() );
         barbeiro.ativo( dto.isAtivo() );
+        barbeiro.comissao( dto.getComissao() );
+        barbeiro.especialidade( dto.getEspecialidade() );
+        barbeiro.nome( dto.getNome() );
 
         return barbeiro.build();
     }
@@ -37,10 +38,11 @@ public class BarbeiroMapperImpl implements BarbeiroMapper {
 
         DTOBarbeiro dTOBarbeiro = new DTOBarbeiro();
 
-        dTOBarbeiro.setNome( barbeiro.getNome() );
-        dTOBarbeiro.setEspecialidade( barbeiro.getEspecialidade() );
-        dTOBarbeiro.setComissao( barbeiro.getComissao() );
+        dTOBarbeiro.setId_barbeiro( barbeiro.getId() );
         dTOBarbeiro.setAtivo( barbeiro.isAtivo() );
+        dTOBarbeiro.setComissao( barbeiro.getComissao() );
+        dTOBarbeiro.setEspecialidade( barbeiro.getEspecialidade() );
+        dTOBarbeiro.setNome( barbeiro.getNome() );
 
         return dTOBarbeiro;
     }

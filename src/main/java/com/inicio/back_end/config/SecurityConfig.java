@@ -45,6 +45,7 @@ public class SecurityConfig {
                     req.requestMatchers("/api/estoque/**").hasAuthority("ADMIN");
                     req.requestMatchers("/api/financeiro/**").hasAuthority("ADMIN");
                     req.requestMatchers("/api/barbeiro/**").hasAuthority("ADMIN");
+                    req.requestMatchers("/api/agendamentos/**").hasAnyAuthority("ADMIN","CLIENTE");
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

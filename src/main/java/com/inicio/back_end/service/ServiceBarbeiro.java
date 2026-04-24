@@ -1,24 +1,20 @@
 package com.inicio.back_end.service;
 
-
 import com.inicio.back_end.dto.DTOBarbeiro;
 import com.inicio.back_end.mapper.BarbeiroMapper;
 import com.inicio.back_end.model.Barbeiro;
 import com.inicio.back_end.repository.RepositoryBarbeiro;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Service
 @Primary
 public class ServiceBarbeiro {
 
     private final RepositoryBarbeiro rb;
-
 
     private final BarbeiroMapper mM;
 

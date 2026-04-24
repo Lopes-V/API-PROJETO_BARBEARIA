@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-04-22T11:09:38-0300",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 22 (Oracle Corporation)"
+    date = "2026-04-24T09:59:03-0300",
+    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class EstoqueMapperImpl implements EstoqueMapper {
@@ -21,6 +21,7 @@ public class EstoqueMapperImpl implements EstoqueMapper {
 
         Estoque.EstoqueBuilder estoque = Estoque.builder();
 
+        estoque.id( dto.getId() );
         estoque.nomeItem( dto.getNomeItem() );
         estoque.quantidadeAtual( dto.getQuantidadeAtual() );
         estoque.quantidadeMinima( dto.getQuantidadeMinima() );
@@ -36,6 +37,7 @@ public class EstoqueMapperImpl implements EstoqueMapper {
 
         DTOEstoque dTOEstoque = new DTOEstoque();
 
+        dTOEstoque.setId( barbeiro.getId() );
         dTOEstoque.setNomeItem( barbeiro.getNomeItem() );
         dTOEstoque.setQuantidadeAtual( barbeiro.getQuantidadeAtual() );
         dTOEstoque.setQuantidadeMinima( barbeiro.getQuantidadeMinima() );

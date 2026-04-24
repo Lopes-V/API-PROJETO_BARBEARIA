@@ -3,7 +3,6 @@ package com.inicio.back_end.controller;
 import com.inicio.back_end.dto.DTOUsuario;
 import com.inicio.back_end.model.Usuario;
 import com.inicio.back_end.service.ServiceUsuario;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,20 +33,17 @@ public class ControllerUsuario {
                     .path("/{id}")
                     .buildAndExpand(usuario.getId())
                     .toUri();
-            
+
             return ResponseEntity.created(uri).body(Map.of(
                     "success", true,
                     "message", "Usuário registrado com sucesso",
                     "data", Map.of(
                             "id", usuario.getId(),
-                            "login", usuario.getUsername()
-                    )
-            ));
+                            "login", usuario.getUsername())));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                     "success", false,
-                    "message", "Erro ao registrar usuário: " + e.getMessage()
-            ));
+                    "message", "Erro ao registrar usuário: " + e.getMessage()));
         }
     }
 
@@ -55,12 +51,11 @@ public class ControllerUsuario {
     public ResponseEntity<?> getUsuarioAutenticado() {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            
+
             if (authentication == null || !authentication.isAuthenticated()) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                         "success", false,
-                        "message", "Usuário não autenticado"
-                ));
+                        "message", "Usuário não autenticado"));
             }
 
             Usuario usuario = (Usuario) authentication.getPrincipal();
@@ -69,14 +64,11 @@ public class ControllerUsuario {
                     "message", "Dados do usuário recuperados com sucesso",
                     "data", Map.of(
                             "id", usuario.getId(),
-                            "login", usuario.getUsername()
-                    )
-            ));
+                            "login", usuario.getUsername())));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
                     "success", false,
-                    "message", "Erro ao recuperar dados do usuário: " + e.getMessage()
-            ));
+                    "message", "Erro ao recuperar dados do usuário: " + e.getMessage()));
         }
     }
 }

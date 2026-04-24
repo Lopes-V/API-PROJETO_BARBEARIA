@@ -1,6 +1,5 @@
 package com.inicio.back_end.controller;
 
-import com.inicio.back_end.dto.DTOToken;
 import com.inicio.back_end.dto.DTOUsuario;
 import com.inicio.back_end.model.Usuario;
 import com.inicio.back_end.service.ServiceToken;
@@ -20,7 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 public class AutenticacaoController {
-    
+
     private final AuthenticationManager manager;
     private final ServiceToken token;
 
@@ -32,14 +31,14 @@ public class AutenticacaoController {
     @PostMapping("/login")
     public ResponseEntity<?> efetuaLogin(@Valid @RequestBody DTOUsuario dtoUsuario) {
         try {
-            UsernamePasswordAuthenticationToken authenticationToken = 
-                new UsernamePasswordAuthenticationToken(dtoUsuario.login(), dtoUsuario.senha());
-            
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    dtoUsuario.login(), dtoUsuario.senha());
+
             Authentication authentication = manager.authenticate(authenticationToken);
             Usuario usuario = (Usuario) authentication.getPrincipal();
-            
+
             String tokenJWT = token.gerarToken(dtoUsuario);
-            
+
             return ResponseEntity.ok(Map.of(
                     "success", true,
                     "message", "Login realizado com sucesso",
@@ -48,22 +47,15 @@ public class AutenticacaoController {
                             "usuario", Map.of(
                                     "id", usuario.getId(),
                                     "login", usuario.getUsername(),
-                                    "role", usuario.getRole()
-                            )
-                    )
-            ));
+                                    "role", usuario.getRole()))));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(401).body(Map.of(
                     "success", false,
-                    "message", "Usuário ou senha incorretos"
-            ));
+                    "message", "Usuário ou senha incorretos"));
         } catch (RuntimeException e) {
             return ResponseEntity.status(500).body(Map.of(
                     "success", false,
-                    "message", "Erro ao processar login: " + e.getMessage()
-            ));
+                    "message", "Erro ao processar login: " + e.getMessage()));
         }
     }
 }
-
-

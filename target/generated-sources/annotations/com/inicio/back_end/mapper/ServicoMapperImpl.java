@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-04-22T11:09:39-0300",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 22 (Oracle Corporation)"
+    date = "2026-04-24T09:59:03-0300",
+    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.46.0.v20260407-0427, environment: Java 21.0.10 (Eclipse Adoptium)"
 )
 @Component
 public class ServicoMapperImpl implements ServicoMapper {
@@ -21,9 +21,12 @@ public class ServicoMapperImpl implements ServicoMapper {
 
         Servico.ServicoBuilder servico = Servico.builder();
 
+        if ( dto.getId_servico() != null ) {
+            servico.id( dto.getId_servico() );
+        }
+        servico.duracaoServico( dto.getDuracaoServico() );
         servico.nome( dto.getNome() );
         servico.preco( dto.getPreco() );
-        servico.duracaoServico( dto.getDuracaoServico() );
 
         return servico.build();
     }
@@ -36,8 +39,9 @@ public class ServicoMapperImpl implements ServicoMapper {
 
         DTOServico dTOServico = new DTOServico();
 
-        dTOServico.setNome( entity.getNome() );
+        dTOServico.setId_servico( entity.getId() );
         dTOServico.setDuracaoServico( entity.getDuracaoServico() );
+        dTOServico.setNome( entity.getNome() );
         dTOServico.setPreco( entity.getPreco() );
 
         return dTOServico;
